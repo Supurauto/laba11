@@ -3,22 +3,22 @@ import home from '../views/home.vue'
 
 const routes = [
   {
-    path: '/',           // URL: localhost:5173/
+    path: '/',        
     name: 'home',
-    component: home  // какой компонент показать
+    component: home 
   },
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/about.vue')  // ленивая загрузка
+    component: () => import('../views/about.vue')  
   },
   {
-    path: '/cats',   // НОВЫЙ МАРШРУТ
+    path: '/cats',  
     name: 'cats',
     component: () => import('../views/cats.vue')
   },
   {
-    path: '/contact',    // НОВЫЙ МАРШРУТ
+    path: '/contact', 
     name: 'contact',
     component: () => import('../views/contact.vue')
   }
