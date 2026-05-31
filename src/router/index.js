@@ -13,7 +13,7 @@ const routes = [
     component: () => import('../views/about.vue')
   },
   {
-    path: '/cats',           // ← ЭТОТ МАРШРУТ ДОЛЖЕН БЫТЬ
+    path: '/cats',
     name: 'cats',
     component: () => import('../views/cats.vue')
   },

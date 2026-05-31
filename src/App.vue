@@ -4,7 +4,7 @@
       <RouterLink to="/">Главная</RouterLink> |
       <RouterLink to="/about">О лабе</RouterLink> |
       <RouterLink to="/cats">Котики</RouterLink> |
-      <RouterLink to="/form">Форма отправки</RouterLink>
+      <RouterLink to="/contact">Связь</RouterLink>
     </nav>
     <RouterView />
   </div>
