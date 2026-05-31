@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { useMainStore } from '@/stores/counter'
+import { useMainStore } from '@/stores/store'
 import { onMounted } from 'vue'
 
 const store = useMainStore()
