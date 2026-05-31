@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import home from '../views/home.vue'
 import about from '../views/about.vue'
 import cats from '../views/cats.vue'      // ← импорт страницы котиков
-import ApiPage from '../views/ApiPage.vue'
-import FormPage from '../views/FormPage.vue'
 
 const routes = [
   { path: '/', name: 'home', component: home },
