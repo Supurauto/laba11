@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', {
   state: () => ({
-    cats: [],      // для 3 котиков
+    cats: [],
     loading: false
   }),
 
@@ -10,11 +10,16 @@ export const useCounterStore = defineStore('counter', {
     async fetchCats() {
       this.loading = true
       try {
-        // Запрашиваем ровно 3 котика
-        const response = await fetch('https://api.thecatapi.com/v1/images/search?limit=3')
-        const data = await response.json()
-        this.cats = data
-        console.log('3 котика загружены', this.cats)
+        // Делаем 3 отдельных запроса, чтобы точно получить 3 разных кота
+        const requests = []
+        for (let i = 0; i < 3; i++) {
+          requests.push(fetch('https://api.thecatapi.com/v1/images/search').then(res => res.json()))
+        }
+        
+        const results = await Promise.all(requests)
+        this.cats = results.map(result => result[0])
+        
+        console.log('3 котика загружены:', this.cats)
       } catch (error) {
         console.error('Ошибка:', error)
       } finally {
