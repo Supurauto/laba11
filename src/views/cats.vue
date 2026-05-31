@@ -2,26 +2,34 @@
   <div class="cats">
     <h1>🐱 Котики</h1>
 
-    <button @click="store.fetchCats()" :disabled="store.loading">
-      {{ store.loading ? 'Загрузка...' : 'Загрузить 3 котиков' }}
-    </button>
+    <!-- Показываем загрузку -->
+    <div v-if="store.loading" class="loader">
+      Загружаем котиков...
+    </div>
 
-    <!-- Показываем ровно 3 котика -->
-    <div v-if="store.cats.length" class="cats-container">
+    <!-- Показываем 3 котиков -->
+    <div v-else-if="store.cats.length" class="cats-container">
       <div v-for="(cat, index) in store.cats" :key="cat.id" class="cat-card">
         <p>Котик #{{ index + 1 }}</p>
         <img :src="cat.url" :alt="'Котик ' + (index + 1)">
       </div>
     </div>
 
-    <p v-else-if="!store.loading">Нажми кнопку, чтобы увидеть 3 котиков</p>
+    <!-- Если ошибка -->
+    <p v-else>Не удалось загрузить котиков</p>
   </div>
 </template>
 
 <script setup>
-import { useCounterStore } from '@/stores/store'
+import { useCounterStore } from '@/store/store'
+import { onMounted } from 'vue'
 
 const store = useCounterStore()
+
+// Автоматически загружаем котиков при открытии страницы
+onMounted(() => {
+  store.fetchCats()
+})
 </script>
 
 <style scoped>
@@ -34,19 +42,10 @@ h1 {
   color: #ff6b6b;
 }
 
-button {
-  background-color: #ff9f43;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  margin: 20px;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.loader {
+  margin-top: 50px;
+  font-size: 18px;
+  color: #ff9f43;
 }
 
 .cats-container {
