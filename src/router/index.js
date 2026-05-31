@@ -1,27 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import home from '../views/home.vue'
+import about from '../views/about.vue'
+import cats from '../views/cats.vue'      // ← импорт страницы котиков
+import ApiPage from '../views/ApiPage.vue'
+import FormPage from '../views/FormPage.vue'
 
 const routes = [
-  {
-    path: '/',        
-    name: 'home',
-    component: home 
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/about.vue')  
-  },
-  {
-    path: '/cats',  
-    name: 'cats',
-    component: () => import('../views/cats.vue')
-  },
-  {
-    path: '/contact', 
-    name: 'contact',
-    component: () => import('../views/contact.vue')
-  }
+  { path: '/', name: 'home', component: home },
+  { path: '/about', name: 'about', component: about },
+  { path: '/cats', name: 'cats', component: cats },      // ← маршрут для котиков
+  { path: '/api', name: 'api', component: ApiPage },
+  { path: '/form', name: 'form', component: FormPage }
 ]
 
 const router = createRouter({
