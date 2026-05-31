@@ -3,9 +3,10 @@
     <h1>🐱 Котики</h1>
 
     <button @click="store.fetchCats()" :disabled="store.loading">
-      {{ store.loading ? 'Загрузка...' : 'Загрузить котиков' }}
+      {{ store.loading ? 'Загрузка...' : 'Загрузить 3 котиков' }}
     </button>
 
+    <!-- Показываем ровно 3 котика -->
     <div v-if="store.cats.length" class="cats-container">
       <div v-for="(cat, index) in store.cats" :key="cat.id" class="cat-card">
         <p>Котик #{{ index + 1 }}</p>
@@ -13,7 +14,7 @@
       </div>
     </div>
 
-    <p v-else-if="!store.loading">Нажми кнопку, чтобы увидеть котиков</p>
+    <p v-else-if="!store.loading">Нажми кнопку, чтобы увидеть 3 котиков</p>
   </div>
 </template>
 
