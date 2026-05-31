@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { useCounterStore } from '@/store/store'
+import { useCounterStore } from '@/stores/store'
 
 const store = useCounterStore()
 </script>
