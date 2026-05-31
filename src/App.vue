@@ -3,7 +3,7 @@
     <nav>
       <RouterLink to="/">Главная</RouterLink> |
       <RouterLink to="/about">О лабе</RouterLink> |
-      <RouterLink to="/cats">🐱 Котики</RouterLink> |
+      <RouterLink to="/cats">Котики</RouterLink> |
       <RouterLink to="/form">Форма отправки</RouterLink>
     </nav>
     <RouterView />

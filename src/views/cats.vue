@@ -1,55 +1,26 @@
 <template>
   <div class="cats">
-    <h1>🐱 Случайные котики</h1>
-    
-    <!-- Кнопка загрузки -->
-    <button @click="loadMoreCats" :disabled="store.loading">
-      {{ store.loading ? 'Загружаем...' : 'Получить котиков 🐾' }}
+    <h1>🐱 Котики</h1>
+
+    <button @click="store.fetchCats()" :disabled="store.loading">
+      {{ store.loading ? 'Загрузка...' : 'Загрузить котиков' }}
     </button>
 
-    <!-- Состояние загрузки -->
-    <div v-if="store.loading" class="loader">
-      <p>Ищем котиков... 🐈</p>
-    </div>
-
-    <!-- Сетка с котиками -->
-    <div v-else class="cats-container">
-      <div v-for="cat in store.cats" :key="cat.id" class="cat-card">
-        <img 
-          :src="cat.url" 
-          :alt="'Котик ' + cat.id"
-          @error="handleImageError"
-        >
+    <div v-if="store.cats.length" class="cats-container">
+      <div v-for="(cat, index) in store.cats" :key="cat.id" class="cat-card">
+        <p>Котик #{{ index + 1 }}</p>
+        <img :src="cat.url" :alt="'Котик ' + (index + 1)">
       </div>
     </div>
 
-    <!-- Если нет котиков -->
-    <p v-if="!store.cats.length && !store.loading" class="empty">
-      Нажми кнопку, чтобы увидеть котиков! 😺
-    </p>
+    <p v-else-if="!store.loading">Нажми кнопку, чтобы увидеть котиков</p>
   </div>
 </template>
 
 <script setup>
-import { useMainStore } from '@/stores/store'
-import { onMounted } from 'vue'
+import { useCounterStore } from '@/store/store'
 
-const store = useMainStore()
-
-// Загружаем котиков при монтировании компонента (опционально)
-onMounted(() => {
-  store.fetchCats(6)  // загружаем 6 котиков
-})
-
-// Загружаем еще котиков
-const loadMoreCats = () => {
-  store.fetchCats(6)
-}
-
-// Если фото не загрузилось - заглушка
-const handleImageError = (event) => {
-  event.target.src = 'https://via.placeholder.com/300x300?text=:(+No+cat'
-}
+const store = useCounterStore()
 </script>
 
 <style scoped>
@@ -60,24 +31,16 @@ const handleImageError = (event) => {
 
 h1 {
   color: #ff6b6b;
-  margin-bottom: 20px;
 }
 
 button {
   background-color: #ff9f43;
   color: white;
   border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  border-radius: 30px;
+  padding: 10px 20px;
+  border-radius: 20px;
   cursor: pointer;
-  margin-bottom: 30px;
-  transition: transform 0.2s;
-}
-
-button:hover:not(:disabled) {
-  transform: scale(1.05);
-  background-color: #ff7f2a;
+  margin: 20px;
 }
 
 button:disabled {
@@ -88,39 +51,25 @@ button:disabled {
 .cats-container {
   display: flex;
   justify-content: center;
-  gap: 25px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 .cat-card {
-  width: 280px;
-  height: 280px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-  background-color: #f9f9f9;
-}
-
-.cat-card:hover {
-  transform: translateY(-5px);
+  width: 250px;
+  text-align: center;
 }
 
 .cat-card img {
   width: 100%;
-  height: 100%;
+  height: 250px;
   object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.loader {
-  margin-top: 50px;
-  font-size: 18px;
-  color: #ff6b6b;
-}
-
-.empty {
-  margin-top: 50px;
-  font-size: 18px;
-  color: #888;
+.cat-card p {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 </style>
